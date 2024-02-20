@@ -51,7 +51,13 @@ def apply_break(round: int, rounds:int, exercise: int, exercises: int, break_nam
     for second in range(0, break_time + 1):
         display(round, rounds, exercise, exercises, 0, break_name,break_time-second)
         time.sleep(1)
-        
+
+def start():
+    for i in range(-10, 0):
+        clear_screen()
+        print("We start in")
+        tprint(f"{(-i):02d}", 'standard')
+        time.sleep(1)
 
 def main():
     rounds = int(args.rounds)
@@ -62,7 +68,7 @@ def main():
     sounds = build_sounds(sound_files)
     print(sounds)
     print(f"round: {rounds}\nexercises: {exercises}\nduration: {duration}")
-
+    start()
     for round in range(1, rounds+1):
         for exercise in range(1, exercises+1):
             sounds['short_whistle'].play()
