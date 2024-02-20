@@ -19,6 +19,7 @@ sound_files = (
    ('short_whistle', './sounds/whistle_short.wav'),
    ('long_whistle', './sounds/whistle_long.wav'),
    ('buzzer', './sounds/buzzer.wav'),
+   ('beep', './sounds/beep.wav'),
 )
 
 def build_sounds(files: tuple) -> dict:
@@ -52,11 +53,13 @@ def apply_break(round: int, rounds:int, exercise: int, exercises: int, break_nam
         display(round, rounds, exercise, exercises, 0, break_name,break_time-second)
         time.sleep(1)
 
-def start():
+def start(sound):
     for i in range(-10, 0):
         clear_screen()
         print("We start in")
         tprint(f"{(-i):02d}", 'standard')
+        if i > -4:
+            sound.play()
         time.sleep(1)
 
 def main():
@@ -68,12 +71,15 @@ def main():
     sounds = build_sounds(sound_files)
     print(sounds)
     print(f"round: {rounds}\nexercises: {exercises}\nduration: {duration}")
-    start()
+    start(sounds['beep'])
     for round in range(1, rounds+1):
         for exercise in range(1, exercises+1):
             sounds['short_whistle'].play()
             for time_counter in range(0, duration + 1):
-                display(round, rounds, exercise, exercises, duration-time_counter)
+                diff = duration-time_counter
+                display(round, rounds, exercise, exercises, diff)
+                if diff <= 3:
+                    sounds['beep'].play()
                 time.sleep(1)
             if exercise != exercises:
                 sounds['long_whistle'].play()
