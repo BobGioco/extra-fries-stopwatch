@@ -2,6 +2,7 @@ import os
 import argparse
 import time
 import simpleaudio as sa
+from art import tprint
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 
@@ -42,7 +43,7 @@ def display(round, rounds_total, exercise, exercise_total, time_counter, break_n
     clear_screen()
     print(f"Round: {round}/{rounds_total}")
     print(f"Exercise: {exercise}/{exercise_total}")
-    print(f"{time_counter:02d}")
+    tprint(f"{time_counter:02d}", 'standard')
     if break_name:
         print(f"{break_name} break: {break_time:02d}")
 
